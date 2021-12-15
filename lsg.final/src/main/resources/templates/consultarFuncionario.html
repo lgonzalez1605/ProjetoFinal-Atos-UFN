@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Consultar Funcionário</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+</head>
+<header th:replace="fragments/header :: cabecalho">
+	<div>header</div>
+</header>
+<body>
+</body>
+<div class="container my-5">
+	<br />
+	<div th:if="${msgErroConsulta}" class="alert alert-danger" role="alert">
+		<p th:text="${msgErroConsulta}" />
+	</div>
+	<div th:if="${msgSucessoConsulta}" class="alert alert-success"
+		role="alert">
+		<p th:text="${msgSucessoConsulta}" />
+	</div>
+	<h3>Consultar Funcionário</h3>
+	<div class="card">
+		<div class="card-body">
+			<div class="col-md-12">
+				<form action="#" th:action="@{/funcionarios/consultar}"
+					th:object="${funcionario}" method="post">
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="name" class="col-form-label">Nome</label> <input
+								th:field="*{name}" id="Nome" type="text" class="form-control"
+								placeholder="Nome"> <span id="txtMensagemErroNome"
+								th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+								class="text-danger"> </span>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="CPF" class="col-form-label">CPF</label> <input
+								th:field="*{CPF}" id="CPF" type="text" class="form-control"
+								placeholder="CPF"> <span id="txtMensagemErroCPF"
+								th:if="${#fields.hasErrors('CPF')}" th:errors="*{CPF}"
+								class="text-danger"> </span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-20">
+						<input type="submit" class="btn btn-primary" id="btnConsultar"
+							value="Consultar"> <a th:if="true" role="button"
+							th:href="@{/funcionarios/cadastrar}" class="btn btn-warning">
+							Cadastrar Funcionário</a>
+					</div>
+				</form>
+
+				<table th:if="${listaFuncionarios}" class="table table-striped">
+					<thead>
+						<tr>
+							<td>Nome</td>
+							<td>CPF</td>
+							<td>Data de Admissão</td>
+							<td>Necessita Notebook?</td>
+							<td>Envio Ok?</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="funcionario : ${listaFuncionarios}">
+							<td th:text="${funcionario.name}">.</td>
+							<td th:text="${funcionario.CPF}">.</td>
+							<td th:text="${funcionario.enrollmentDate}">.</td>
+							<td th:text="${funcionario.necessitaNotebook ? 'Sim' : 'Não'}">.</td>
+							<td th:text="${funcionario.send ? 'Sim' : 'Não'}">.</td>
+							<td>
+								<div class="btn-group pull-right">
+									<a class="btn btn-sm btn-primary" th:if="true"
+										th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}"
+										id="btnEditarFuncionario">Editar</a> <a th:if="${!funcionario.send}"
+										class="btn btn-sm btn-warning"
+										th:href="@{/funcionarios/confirmarEnvio/{id}(id=${funcionario.id})}"
+										id="btnConfirmarEnvio">Enviado</a> <a th:if="true"
+										class="btn btn-sm btn-danger"
+										th:href="@{/funcionarios/deletar/{id}(id=${funcionario.id})}"
+										id="btnExcluirFuncionario">Deletar</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<footer th:replace="fragments/footer :: rodape">
+	<div>footer</div>
+</footer>
+</html>

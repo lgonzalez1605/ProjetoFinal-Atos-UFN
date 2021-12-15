@@ -1,0 +1,8 @@
+com\projetofinal\controller\UsuarioController.class
+com\projetofinal\Application.class
+com\projetofinal\model\Usuario.class
+com\projetofinal\model\FuncionarioRepository.class
+com\projetofinal\model\Funcionario.class
+com\projetofinal\controller\LoginController.class
+com\projetofinal\model\UsuarioRepository.class
+com\projetofinal\controller\FuncionarioController.class
